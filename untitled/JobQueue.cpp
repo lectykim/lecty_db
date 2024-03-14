@@ -12,5 +12,9 @@ void JobQueue::Push(std::shared_ptr<Job> jobRef) {
 }
 
 void JobQueue::Execute() {
-
+        std::vector<std::shared_ptr<Job>> jobs;
+        _jobs.PopAll(jobs);
+        for(auto &job:jobs){
+            job->Execute();
+        }
 }

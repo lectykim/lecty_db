@@ -26,6 +26,8 @@ void ThreadPool::WorkerThread() {
         if(size == 0)
             continue;
 
+        std::shared_ptr<JobQueue> jobQueueRef = _globalQueue.Pop();
+        jobQueueRef->Execute();
 
     }
 }
