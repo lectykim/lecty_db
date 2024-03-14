@@ -30,7 +30,7 @@ public:
         return 0;
     };
 
-    bool cmdIs(const std::string& word,const char* cmd){
+    static bool cmdIs(const std::string& word,const char* cmd){
         return 0 == strcasecmp(word.c_str(),cmd);
     }
 
@@ -55,6 +55,13 @@ public:
 
     }
 
+    bool doDel(
+            const std::vector<std::string>&cmd,uint8_t *res,uint32_t &resLen
+            ){
+        db.erase(cmd[1]);
+        return RES_OK;
+    }
+
     int32_t doRequest(
             const char *req, uint32_t reqLen,uint32_t *resCode
             ,uint8_t *res, uint32_t *resLen
@@ -66,14 +73,14 @@ public:
 
         if(cmd.size()==2 && cmdIs(cmd[0],"get"))
         {
-            *resCode = doGet(cmd,res,resLen);
+            *resCode = doGet(cmd,res,*resLen);
         }
         else if(cmd.size() == 3 && cmdIs(cmd[0],"set"))
         {
-            *resCode = doSet(cmd,res,resLen);
+            *resCode = doSet(cmd,res,*resLen);
         }
-        else if(cmd.size() == 2 && cmdIs(cmd[0],del)){
-            *resCode = do_del(cnd,res,resLen);
+        else if(cmd.size() == 2 && cmdIs(cmd[0],"del")){
+            *resCode = doDel(cmd,res,*resLen);
         }
         else
         {
