@@ -28,4 +28,8 @@ add_executable(untitled main.cpp
         ThreadPool.h
         GlobalQueue.cpp
         GlobalQueue.h
+        Responser.cpp
+        Responser.h
+        SocketManager.cpp
+        SocketManager.h
 )

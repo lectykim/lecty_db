@@ -14,6 +14,9 @@
 #include "RecvBuffer.h"
 #include "SendBuffer.h"
 #include <mutex>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
 enum {
     K_MAX_BUF=4096,
     MAX_CONNECTION_COUNT=4096,
@@ -25,32 +28,51 @@ enum {
 };
 class Connection {
 public:
-    Connection(int fd):_fd(fd){
+    Connection(int fd,sockaddr_in address):_fd(fd), _address(address){
 
         _recvBuffer = new RecvBuffer(K_MAX_BUF);
         _sendBuffer = new SendBuffer(K_MAX_BUF);
         _state = STATE_REQ;
     }
     ~Connection() = default;
+    void Clear();
+    int GetFd () const{return _fd;}
+    std::string GetAddress(){
+        char addr[100];
+        inet_ntop(AF_INET,(struct sockaddr_in*)&_address.sin_addr,addr,sizeof(addr));
+        return addr;
+    }
+    RecvBuffer* GetRecvBuffer(){return _recvBuffer;}
+    SendBuffer* GetSendBuffer(){return _sendBuffer;}
+
 private:
     int _fd=-1;
     uint32_t _state=0; //either STATE_REQ or STATE_RES
     RecvBuffer* _recvBuffer;
     SendBuffer* _sendBuffer;
-
-
+    sockaddr_in _address;
 };
 
 class ConnectionPool{
 public:
     ConnectionPool() = default;
 
-    static void connPut(int fd){
-        auto* conn = new Connection(fd);
-        _connections[fd] = conn;
+    void connPut(Connection* conn){
+
+        _connections[conn->GetFd()] = conn;
     }
 
-    static void Clear(){
+    Connection* getCon(int fd){
+        return _connections[fd];
+    }
+
+    void connPush(int fd){
+        Connection* conn = _connections[fd];
+        delete conn;
+        _connections[fd] = nullptr;
+    }
+
+    void Clear(){
         for(auto* conn : _connections){
             delete conn;
         }
@@ -59,7 +81,7 @@ public:
 
     static std::vector<Connection*> _connections;
 };
-
+ConnectionPool* GConnectionPool = new ConnectionPool();
 
 
 

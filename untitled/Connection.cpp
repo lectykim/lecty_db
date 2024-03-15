@@ -5,4 +5,7 @@
 #include "Connection.h"
 
 
-
+void Connection::Clear() {
+    delete _recvBuffer;
+    delete _sendBuffer;
+}
