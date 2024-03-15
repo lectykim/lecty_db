@@ -42,6 +42,7 @@ public:
         inet_ntop(AF_INET,(struct sockaddr_in*)&_address.sin_addr,addr,sizeof(addr));
         return addr;
     }
+    uint32_t OnRecv(char* buffer,int len);
     RecvBuffer* GetRecvBuffer(){return _recvBuffer;}
     SendBuffer* GetSendBuffer(){return _sendBuffer;}
 
@@ -72,6 +73,8 @@ public:
         _connections[fd] = nullptr;
     }
 
+
+
     void Clear(){
         for(auto* conn : _connections){
             delete conn;
@@ -79,9 +82,9 @@ public:
 
     }
 
-    static std::vector<Connection*> _connections;
+    std::vector<Connection*> _connections;
 };
-ConnectionPool* GConnectionPool = new ConnectionPool();
+extern ConnectionPool* GConnectionPool;
 
 
 

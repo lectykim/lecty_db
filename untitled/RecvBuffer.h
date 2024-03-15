@@ -6,7 +6,7 @@
 #define LECTY_DB_RECVBUFFER_H
 
 #include <vector>
-enum{BUFFER_COUNT=10,BUFFER_SIZE=1024};
+enum class RECV_BUFFER:int{BUFFER_COUNT=10,BUFFER_SIZE=1024};
 class RecvBuffer {
 
 

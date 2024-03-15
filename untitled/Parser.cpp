@@ -3,3 +3,4 @@
 //
 
 #include "Parser.h"
+Parser* GParser = new Parser();

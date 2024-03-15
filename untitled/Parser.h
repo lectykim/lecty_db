@@ -14,6 +14,7 @@ enum {
     RES_OK = 0,
     RES_ERR = 1,
     RES_NX = 2,
+    RES_CONN_REFUSED=3
 };
 class Parser {
 public:
@@ -97,6 +98,6 @@ public:
 private:
     std::map<std::string,std::string> db;
 };
-
+extern Parser* GParser;
 
 #endif //UNTITLED_PARSER_H

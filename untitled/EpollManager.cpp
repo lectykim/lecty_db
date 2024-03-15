@@ -10,6 +10,7 @@
 #include "Connection.h"
 #include <memory>
 #include <iostream>
+#include "Parser.h"
 int EpollManager::EpollInit() {
     if((_fdEpoll=epoll_create(MAX_EVENTS))>0)
         _isEpollInit=true;
@@ -79,6 +80,7 @@ void EpollManager::EpollRunning() {
                 str_len = read(client_fd, buffer, len);
 
                 //session->_recvBuffer.OnWrite(str_len);
+                conn->GetRecvBuffer()->OnWrite(str_len);
 
                 if (str_len == 0) {
                     printf("client Disconnect [%d] \n", client_fd);
@@ -87,18 +89,17 @@ void EpollManager::EpollRunning() {
                     epoll_ctl(_fdEpoll, EPOLL_CTL_DEL, client_fd, nullptr);
                 } else {
                     int dataSize = conn->GetRecvBuffer()->DataSize();
-                    int processLen = conn->OnRecv(conn->GetRecvBuffer()->ReadPos(), dataSize);
-                    if (processLen < 0 || dataSize < processLen || !session->_recvBuffer.OnRead(processLen)) {
-                        // TODO: 커넥션 제거 작업 필요
-                        //cout << "client Disconnect [%d]" << endl;
-                        //GSessionManager._sessions.find(client_fd)->second->OnDisconnected();
-                        //GSessionManager.Remove(client_fd);
+                    uint32_t code = conn->OnRecv(conn->GetRecvBuffer()->ReadPos(), dataSize);
+                    if(code == RES_CONN_REFUSED){
+                        printf("client Disconnect [%d] \n", client_fd);
+                        GConnectionPool->connPush(client_fd);
                         close(client_fd);
                         epoll_ctl(_fdEpoll, EPOLL_CTL_DEL, client_fd, nullptr);
+                        continue;
                     }
-                    //session->_recvBuffer.Clean();
-                    conn->GetRecvBuffer()->Clean();
+
                 }
+                conn->GetRecvBuffer()->Clean();
 
             }
         }

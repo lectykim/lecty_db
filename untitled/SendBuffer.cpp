@@ -6,7 +6,7 @@
 #include <cstring>
 SendBuffer::SendBuffer(int bufferSize):_bufferSize(bufferSize)
 {
-    _capacity = bufferSize*BUFFER_COUNT;
+    _capacity = bufferSize*static_cast<int>(SEND_BUFFER::BUFFER_COUNT);
     _buffer.resize(_capacity);
 }
 

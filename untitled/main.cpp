@@ -27,8 +27,10 @@ int main() {
     GEpollManager->EpollInit();
     GEpollManager->epollAdd(fd);
     std::vector<std::thread> threads;
-    threads.emplace_back([](){
+    //threads.emplace_back([](){});
+
+    while(true){
         GEpollManager->EpollRunning();
-    });
+    }
 
 }

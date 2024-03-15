@@ -6,7 +6,11 @@
 #define UNTITLED_SENDBUFFER_H
 
 #include <vector>
-enum {BUFFER_COUNT=10,BUFFER_SIZE=1024};
+enum class SEND_BUFFER:int
+        {
+    BUFFER_COUNT=10,
+    BUFFER_SIZE=1024
+        };
 
 class SendBuffer {
 public:

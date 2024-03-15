@@ -5,11 +5,11 @@
 #include "RecvBuffer.h"
 #include <cstring>
 
-RecvBuffer* GRecvBuffer = new RecvBuffer(BUFFER_SIZE);
+RecvBuffer* GRecvBuffer = new RecvBuffer(static_cast<int>(RECV_BUFFER::BUFFER_SIZE));
 
 RecvBuffer::RecvBuffer(int bufferSize):_bufferSize(bufferSize)
 {
-    _capacity=bufferSize*BUFFER_COUNT;
+    _capacity=bufferSize*static_cast<int>(RECV_BUFFER::BUFFER_COUNT);
     _buffer.resize(_capacity);
 }
 
