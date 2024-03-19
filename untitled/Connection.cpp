@@ -4,7 +4,7 @@
 
 #include "Connection.h"
 #include "Parser.h"
-ConnectionPool* GConnectionPool = new ConnectionPool();
+
 void Connection::Clear() {
     delete _recvBuffer;
     delete _sendBuffer;

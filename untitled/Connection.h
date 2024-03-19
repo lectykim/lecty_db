@@ -85,7 +85,7 @@ public:
 
     std::vector<Connection*> _connections;
 };
-extern ConnectionPool* GConnectionPool;
+
 
 
 

@@ -11,6 +11,7 @@
 #include <map>
 #include "Connection.h"
 #include "PacketQueue.h"
+#include "InitialGlobal.h"
 enum {
     RES_OK = 0,
     RES_ERR = 1,

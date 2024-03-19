@@ -4,9 +4,6 @@
 
 #include "RecvBuffer.h"
 #include <cstring>
-
-RecvBuffer* GRecvBuffer = new RecvBuffer(static_cast<int>(RECV_BUFFER::BUFFER_SIZE));
-
 RecvBuffer::RecvBuffer(int bufferSize):_bufferSize(bufferSize)
 {
     _capacity=bufferSize*static_cast<int>(RECV_BUFFER::BUFFER_COUNT);

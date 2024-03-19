@@ -32,6 +32,5 @@ private:
     std::vector<char> _buffer;
 };
 
-extern RecvBuffer* GRecvBuffer;
 
 #endif //LECTY_DB_RECVBUFFER_H

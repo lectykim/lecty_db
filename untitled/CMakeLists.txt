@@ -26,4 +26,6 @@ add_executable(untitled main.cpp
         ThreadPool.h
         SocketManager.cpp
         SocketManager.h
+        InitialGlobal.cpp
+        InitialGlobal.h
 )

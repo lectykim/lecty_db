@@ -1,3 +1,4 @@
+#include "PacketQueue.h"
 #include <assert.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -17,12 +18,11 @@
 #include "ThreadPool.h"
 #include "SocketManager.h"
 #include <thread>
+#include "InitialGlobal.h"
 
-const int MAX_THREAD_COUNT=16;
 
-ThreadPool* GThreadPool = new ThreadPool(MAX_THREAD_COUNT);
-EpollManager* GEpollManager= new EpollManager();
 int main() {
+    InitialGlobal::Init();
     int fd = SocketManager::Init();
     GEpollManager->EpollInit();
     GEpollManager->epollAdd(fd);

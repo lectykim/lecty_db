@@ -29,6 +29,7 @@ struct PacketItem{
 class PacketQueue{
 
 public:
+    PacketQueue()=default;
     void Execute();
 
     size_t GetSize() {return _jobs.Size();}
@@ -39,6 +40,5 @@ protected:
     LockQueue<std::shared_ptr<PacketItem>> _jobs;
     std::atomic<int32_t> _jobCount=0;
 };
-extern PacketQueue* GPacketQueue;
 
 #endif //UNTITLED_PACKETQUEUE_H

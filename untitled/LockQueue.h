@@ -10,6 +10,7 @@
 template<typename T>
 class LockQueue {
 
+
 public:
     void Push(T item){
         std::lock_guard<std::mutex> guard(m);

@@ -3,7 +3,7 @@
 //
 
 #include "ThreadPool.h"
-
+#include "InitialGlobal.h"
 ThreadPool::ThreadPool(size_t numThreads)
 :_numThreads(numThreads),_stopAll(false){
     _workerThreads.reserve(_numThreads);

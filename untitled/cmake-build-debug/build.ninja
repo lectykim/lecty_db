@@ -121,6 +121,12 @@ build CMakeFiles/untitled.dir/SocketManager.cpp.o: CXX_COMPILER__untitled_unscan
   OBJECT_DIR = CMakeFiles/untitled.dir
   OBJECT_FILE_DIR = CMakeFiles/untitled.dir
 
+build CMakeFiles/untitled.dir/InitialGlobal.cpp.o: CXX_COMPILER__untitled_unscanned_Debug /home/user/workspace/lecty_db/untitled/InitialGlobal.cpp || cmake_object_order_depends_target_untitled
+  DEP_FILE = CMakeFiles/untitled.dir/InitialGlobal.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/untitled.dir
+  OBJECT_FILE_DIR = CMakeFiles/untitled.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target untitled
@@ -129,7 +135,7 @@ build CMakeFiles/untitled.dir/SocketManager.cpp.o: CXX_COMPILER__untitled_unscan
 #############################################
 # Link the executable untitled
 
-build untitled: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/hashtable.cpp.o CMakeFiles/untitled.dir/avl_tree.cpp.o CMakeFiles/untitled.dir/EpollManager.cpp.o CMakeFiles/untitled.dir/RecvBuffer.cpp.o CMakeFiles/untitled.dir/Connection.cpp.o CMakeFiles/untitled.dir/Parser.cpp.o CMakeFiles/untitled.dir/SendBuffer.cpp.o CMakeFiles/untitled.dir/PacketQueue.cpp.o CMakeFiles/untitled.dir/LockQueue.cpp.o CMakeFiles/untitled.dir/ThreadPool.cpp.o CMakeFiles/untitled.dir/SocketManager.cpp.o
+build untitled: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/hashtable.cpp.o CMakeFiles/untitled.dir/avl_tree.cpp.o CMakeFiles/untitled.dir/EpollManager.cpp.o CMakeFiles/untitled.dir/RecvBuffer.cpp.o CMakeFiles/untitled.dir/Connection.cpp.o CMakeFiles/untitled.dir/Parser.cpp.o CMakeFiles/untitled.dir/SendBuffer.cpp.o CMakeFiles/untitled.dir/PacketQueue.cpp.o CMakeFiles/untitled.dir/LockQueue.cpp.o CMakeFiles/untitled.dir/ThreadPool.cpp.o CMakeFiles/untitled.dir/SocketManager.cpp.o CMakeFiles/untitled.dir/InitialGlobal.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/untitled.dir
   POST_BUILD = :

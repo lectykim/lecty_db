@@ -5,7 +5,6 @@
 #include "PacketQueue.h"
 
 #include <utility>
-PacketQueue* GPacketQueue = new PacketQueue();
 void PacketQueue::Push(const PacketItem& packetItem) {
     _jobs.Push(std::make_shared<PacketItem>(packetItem));
 }
