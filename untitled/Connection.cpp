@@ -13,7 +13,7 @@ void Connection::Clear() {
 uint32_t Connection::OnRecv(char* buffer,int len) {
     uint32_t resCode;
     GParser->doRequest(
-            buffer,static_cast<uint32_t>(len),&resCode, nullptr, nullptr
+            buffer,static_cast<uint32_t>(len),&resCode,this
             );
     return resCode;
 }

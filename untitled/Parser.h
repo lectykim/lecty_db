@@ -10,6 +10,7 @@
 #include <cstring>
 #include <map>
 #include "Connection.h"
+#include "PacketQueue.h"
 enum {
     RES_OK = 0,
     RES_ERR = 1,
@@ -35,63 +36,94 @@ public:
         return 0 == strcasecmp(word.c_str(),cmd);
     }
 
-    uint32_t doGet(
-            const std::vector<std::string> &cmd,uint8_t *res,uint32_t &resLen)
+    uint32_t doGet(const std::vector<std::string> &cmd,std::string& buffer)
             {
         if(!db.count(cmd[1])){
             return RES_NX;
         }
-        std::string &val = db[cmd[1]];
-        assert(val.size() <= K_MAX_BUF);
-        memcpy(res,val.data(),val.size());
-        resLen = static_cast<uint32_t>(val.size());
+        buffer = db[cmd[1]];
         return RES_OK;
     }
 
-    uint32_t doSet(
-            const std::vector<std::string>&cmd, uint8_t *res,uint32_t &resLen)
+    uint32_t doSet(const std::vector<std::string>&cmd)
             {
         db[cmd[1]] = cmd[2];
         return RES_OK;
 
     }
 
-    bool doDel(
-            const std::vector<std::string>&cmd,uint8_t *res,uint32_t &resLen
-            ){
+    bool doDel(const std::vector<std::string>&cmd){
         db.erase(cmd[1]);
         return RES_OK;
     }
 
     int32_t doRequest(
-            const char *req, uint32_t reqLen,uint32_t *resCode
-            ,uint8_t *res, uint32_t *resLen
+            const char *req, uint32_t reqLen,uint32_t *resCode,Connection* conn
             ){
         std::vector<std::string> cmd;
         if(0 != parseReq(req,reqLen,cmd)){
             return -1;
         }
-
+        std::string buffer;
+        PacketItem packetItem;
         if(cmd.size()==2 && cmdIs(cmd[0],"get"))
         {
-            *resCode = doGet(cmd,res,*resLen);
+            *resCode = doGet(cmd,buffer);
+            if(*resCode == RES_NX)
+            {
+                buffer = "null";
+                packetItem.conn= conn;
+                packetItem.buffer=buffer.c_str();
+                packetItem.len = buffer.size();
+            }
+            else
+            {
+
+                packetItem.conn = conn;
+                packetItem.buffer = buffer.c_str();
+                packetItem.len = buffer.size();
+
+            }
+            packetItem.code=*resCode;
+            GPacketQueue->Push(packetItem);
+
         }
         else if(cmd.size() == 3 && cmdIs(cmd[0],"set"))
         {
-            *resCode = doSet(cmd,res,*resLen);
+            *resCode = doSet(cmd);
+            if(*resCode == RES_OK)
+            {
+                buffer = "OK";
+                packetItem.conn= conn;
+                packetItem.buffer=buffer.c_str();
+                packetItem.len = buffer.size();
+            }
+            packetItem.code = *resCode;
+            GPacketQueue->Push(packetItem);
         }
         else if(cmd.size() == 2 && cmdIs(cmd[0],"del")){
-            *resCode = doDel(cmd,res,*resLen);
+            *resCode = doDel(cmd);
+            if(*resCode == RES_OK)
+            {
+                buffer = "OK";
+                packetItem.conn= conn;
+                packetItem.buffer=buffer.c_str();
+                packetItem.len = buffer.size();
+            }
+            packetItem.code = *resCode;
+            GPacketQueue->Push(packetItem);
         }
         else
         {
-            //cmd is not recognized
             *resCode = RES_ERR;
-            const char* msg = "Unknown cmd";
-            strcpy((char*)res,msg);
-            *resLen = strlen(msg);
-            return 0;
+            buffer = "cmd is not recognized";
+            packetItem.conn= conn;
+            packetItem.buffer=buffer.c_str();
+            packetItem.len = buffer.size();
+            packetItem.code = *resCode;
+            GPacketQueue->Push(packetItem);
         }
+
         return 0;
     }
 

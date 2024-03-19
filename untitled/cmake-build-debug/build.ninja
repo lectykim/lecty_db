@@ -97,14 +97,8 @@ build CMakeFiles/untitled.dir/SendBuffer.cpp.o: CXX_COMPILER__untitled_unscanned
   OBJECT_DIR = CMakeFiles/untitled.dir
   OBJECT_FILE_DIR = CMakeFiles/untitled.dir
 
-build CMakeFiles/untitled.dir/JobQueue.cpp.o: CXX_COMPILER__untitled_unscanned_Debug /home/user/workspace/lecty_db/untitled/JobQueue.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles/untitled.dir/JobQueue.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/untitled.dir
-  OBJECT_FILE_DIR = CMakeFiles/untitled.dir
-
-build CMakeFiles/untitled.dir/Job.cpp.o: CXX_COMPILER__untitled_unscanned_Debug /home/user/workspace/lecty_db/untitled/Job.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles/untitled.dir/Job.cpp.o.d
+build CMakeFiles/untitled.dir/PacketQueue.cpp.o: CXX_COMPILER__untitled_unscanned_Debug /home/user/workspace/lecty_db/untitled/PacketQueue.cpp || cmake_object_order_depends_target_untitled
+  DEP_FILE = CMakeFiles/untitled.dir/PacketQueue.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/untitled.dir
   OBJECT_FILE_DIR = CMakeFiles/untitled.dir
@@ -117,18 +111,6 @@ build CMakeFiles/untitled.dir/LockQueue.cpp.o: CXX_COMPILER__untitled_unscanned_
 
 build CMakeFiles/untitled.dir/ThreadPool.cpp.o: CXX_COMPILER__untitled_unscanned_Debug /home/user/workspace/lecty_db/untitled/ThreadPool.cpp || cmake_object_order_depends_target_untitled
   DEP_FILE = CMakeFiles/untitled.dir/ThreadPool.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/untitled.dir
-  OBJECT_FILE_DIR = CMakeFiles/untitled.dir
-
-build CMakeFiles/untitled.dir/GlobalQueue.cpp.o: CXX_COMPILER__untitled_unscanned_Debug /home/user/workspace/lecty_db/untitled/GlobalQueue.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles/untitled.dir/GlobalQueue.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/untitled.dir
-  OBJECT_FILE_DIR = CMakeFiles/untitled.dir
-
-build CMakeFiles/untitled.dir/Responser.cpp.o: CXX_COMPILER__untitled_unscanned_Debug /home/user/workspace/lecty_db/untitled/Responser.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles/untitled.dir/Responser.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/untitled.dir
   OBJECT_FILE_DIR = CMakeFiles/untitled.dir
@@ -147,7 +129,7 @@ build CMakeFiles/untitled.dir/SocketManager.cpp.o: CXX_COMPILER__untitled_unscan
 #############################################
 # Link the executable untitled
 
-build untitled: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/hashtable.cpp.o CMakeFiles/untitled.dir/avl_tree.cpp.o CMakeFiles/untitled.dir/EpollManager.cpp.o CMakeFiles/untitled.dir/RecvBuffer.cpp.o CMakeFiles/untitled.dir/Connection.cpp.o CMakeFiles/untitled.dir/Parser.cpp.o CMakeFiles/untitled.dir/SendBuffer.cpp.o CMakeFiles/untitled.dir/JobQueue.cpp.o CMakeFiles/untitled.dir/Job.cpp.o CMakeFiles/untitled.dir/LockQueue.cpp.o CMakeFiles/untitled.dir/ThreadPool.cpp.o CMakeFiles/untitled.dir/GlobalQueue.cpp.o CMakeFiles/untitled.dir/Responser.cpp.o CMakeFiles/untitled.dir/SocketManager.cpp.o
+build untitled: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/hashtable.cpp.o CMakeFiles/untitled.dir/avl_tree.cpp.o CMakeFiles/untitled.dir/EpollManager.cpp.o CMakeFiles/untitled.dir/RecvBuffer.cpp.o CMakeFiles/untitled.dir/Connection.cpp.o CMakeFiles/untitled.dir/Parser.cpp.o CMakeFiles/untitled.dir/SendBuffer.cpp.o CMakeFiles/untitled.dir/PacketQueue.cpp.o CMakeFiles/untitled.dir/LockQueue.cpp.o CMakeFiles/untitled.dir/ThreadPool.cpp.o CMakeFiles/untitled.dir/SocketManager.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/untitled.dir
   POST_BUILD = :

@@ -18,18 +18,12 @@ add_executable(untitled main.cpp
         Parser.h
         SendBuffer.cpp
         SendBuffer.h
-        JobQueue.cpp
-        JobQueue.h
-        Job.cpp
-        Job.h
+        PacketQueue.cpp
+        PacketQueue.h
         LockQueue.cpp
         LockQueue.h
         ThreadPool.cpp
         ThreadPool.h
-        GlobalQueue.cpp
-        GlobalQueue.h
-        Responser.cpp
-        Responser.h
         SocketManager.cpp
         SocketManager.h
 )

@@ -8,13 +8,12 @@
 #include <cstdlib>
 #include <vector>
 #include <thread>
-#include "GlobalQueue.h"
 #include <mutex>
+#include "PacketQueue.h"
 class ThreadPool {
 public:
     ThreadPool(size_t numThreads);
     ~ThreadPool();
-    GlobalQueue _globalQueue;
 private:
     size_t _numThreads;
     std::vector<std::thread> _workerThreads;

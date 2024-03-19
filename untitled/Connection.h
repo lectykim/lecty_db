@@ -16,6 +16,7 @@
 #include <mutex>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <memory>
 #include <netinet/ip.h>
 enum {
     K_MAX_BUF=4096,
@@ -45,13 +46,13 @@ public:
     uint32_t OnRecv(char* buffer,int len);
     RecvBuffer* GetRecvBuffer(){return _recvBuffer;}
     SendBuffer* GetSendBuffer(){return _sendBuffer;}
-
 private:
     int _fd=-1;
     uint32_t _state=0; //either STATE_REQ or STATE_RES
     RecvBuffer* _recvBuffer;
     SendBuffer* _sendBuffer;
     sockaddr_in _address;
+
 };
 
 class ConnectionPool{

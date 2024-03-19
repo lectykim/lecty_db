@@ -22,12 +22,10 @@ ThreadPool::~ThreadPool() {
 void ThreadPool::WorkerThread() {
     while(true){
         std::unique_lock<std::mutex> lock(m);
-        size_t size = _globalQueue.GetSize();
+        size_t size = GPacketQueue->GetSize();
         if(size == 0)
             continue;
-
-        std::shared_ptr<JobQueue> jobQueueRef = _globalQueue.Pop();
-        jobQueueRef->Execute();
+        GPacketQueue->Execute();
 
     }
 }
