@@ -57,7 +57,9 @@ private:
 
 class ConnectionPool{
 public:
-    ConnectionPool() = default;
+    ConnectionPool() {
+        _connections.resize(10000);
+    };
 
     void connPut(Connection* conn){
 
