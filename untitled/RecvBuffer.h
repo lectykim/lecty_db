@@ -11,7 +11,7 @@ class RecvBuffer {
 
 
 public:
-    RecvBuffer(int bufferSize);
+    explicit RecvBuffer(int bufferSize);
     ~RecvBuffer() = default;
 
     void Clean();

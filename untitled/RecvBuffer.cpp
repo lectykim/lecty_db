@@ -12,11 +12,6 @@ RecvBuffer::RecvBuffer(int bufferSize):_bufferSize(bufferSize)
 
 void RecvBuffer::Clean() {
     int dataSize = DataSize();
-    if(dataSize == 0)
-    {
-        _readPos = _writePos = 0;
-    }
-    else
     {
         if(FreeSize()<_bufferSize)
         {

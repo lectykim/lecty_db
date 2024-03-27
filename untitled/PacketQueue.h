@@ -14,14 +14,14 @@
 
 struct PacketItem{
     Connection* conn;
-    const char* buffer;
+    std::shared_ptr<std::string> buffer;
     uint32_t code;
-    int len;
+
     void Execute() const{
 
         // TODO: CODE값에 따른 데이터 수정
 
-        if(send(conn->GetFd(), reinterpret_cast<const void *>(buffer), len, 0) == -1){
+        if(send(conn->GetFd(), reinterpret_cast<const void *>(buffer->c_str()), strlen(buffer->c_str()), 0) == -1){
             std::cout << "client send error" << std::endl;
         }
     }

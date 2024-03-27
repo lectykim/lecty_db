@@ -62,7 +62,7 @@ void EpollManager::EpollRunning() {
                 clientEvents.events = EPOLLIN | EPOLLET;
                 clientEvents.data.fd = client_fd;
                 auto* conn = new Connection(client_fd,client_addr);
-                std::cout<< "Client Connected" << conn->GetAddress() << std::endl;
+                std::cout<< "Client Connected : " << conn->GetAddress() << std::endl;
                 GConnectionPool->connPut(conn);
                 //클라이언트 fd,epoll에 등록
                 if (epoll_ctl(_fdEpoll, EPOLL_CTL_ADD, client_fd, &clientEvents) < 0) {
@@ -90,6 +90,7 @@ void EpollManager::EpollRunning() {
                 } else {
                     int dataSize = conn->GetRecvBuffer()->DataSize();
                     uint32_t code = conn->OnRecv(conn->GetRecvBuffer()->ReadPos(), dataSize);
+                    conn->GetRecvBuffer()->OnRead(str_len);
                     if(code == RES_CONN_REFUSED){
                         printf("client Disconnect [%d] \n", client_fd);
                         GConnectionPool->connPush(client_fd);
@@ -97,9 +98,9 @@ void EpollManager::EpollRunning() {
                         epoll_ctl(_fdEpoll, EPOLL_CTL_DEL, client_fd, nullptr);
                         continue;
                     }
+                    conn->GetRecvBuffer()->Clean();
 
                 }
-                conn->GetRecvBuffer()->Clean();
 
             }
         }

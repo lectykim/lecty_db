@@ -37,12 +37,12 @@ public:
         return 0 == strcasecmp(word.c_str(),cmd);
     }
 
-    uint32_t doGet(const std::vector<std::string> &cmd,std::string& buffer)
+    uint32_t doGet(const std::vector<std::string> &cmd,std::shared_ptr<std::string>& buffer)
             {
         if(!db.count(cmd[1])){
             return RES_NX;
         }
-        buffer = db[cmd[1]];
+        buffer = std::make_shared<std::string>(db[cmd[1]]);
         return RES_OK;
     }
 
@@ -65,24 +65,24 @@ public:
         if(0 != parseReq(req,reqLen,cmd)){
             return -1;
         }
-        std::string buffer;
-        PacketItem packetItem;
+        std::shared_ptr<std::string> buffer;
+        PacketItem packetItem{};
         if(cmd.size()==2 && cmdIs(cmd[0],"get"))
         {
             *resCode = doGet(cmd,buffer);
             if(*resCode == RES_NX)
             {
-                buffer = "null";
+                buffer = std::make_shared<std::string>("null");
+                packetItem.buffer = std::move(buffer);
                 packetItem.conn= conn;
-                packetItem.buffer=buffer.c_str();
-                packetItem.len = buffer.size();
+
             }
             else
             {
 
+                packetItem.buffer = std::move(buffer);
                 packetItem.conn = conn;
-                packetItem.buffer = buffer.c_str();
-                packetItem.len = buffer.size();
+
 
             }
             packetItem.code=*resCode;
@@ -94,10 +94,10 @@ public:
             *resCode = doSet(cmd);
             if(*resCode == RES_OK)
             {
-                buffer = "OK";
+                buffer = std::make_shared<std::string>("OK");
+                packetItem.buffer = std::move(buffer);
                 packetItem.conn= conn;
-                packetItem.buffer=buffer.c_str();
-                packetItem.len = buffer.size();
+
             }
             packetItem.code = *resCode;
             GPacketQueue->Push(packetItem);
@@ -106,25 +106,24 @@ public:
             *resCode = doDel(cmd);
             if(*resCode == RES_OK)
             {
-                buffer = "OK";
+                buffer = std::make_shared<std::string>("OK");
                 packetItem.conn= conn;
-                packetItem.buffer=buffer.c_str();
-                packetItem.len = buffer.size();
+
             }
+            packetItem.buffer = std::move(buffer);
             packetItem.code = *resCode;
             GPacketQueue->Push(packetItem);
         }
         else
         {
             *resCode = RES_ERR;
-            buffer = "cmd is not recognized";
+            buffer = std::make_shared<std::string>("cmd is not recognized");
             packetItem.conn= conn;
-            packetItem.buffer=buffer.c_str();
-            packetItem.len = buffer.size();
+            packetItem.buffer = std::move(buffer);
             packetItem.code = *resCode;
             GPacketQueue->Push(packetItem);
         }
-
+        cmd.clear();
         return 0;
     }
 
